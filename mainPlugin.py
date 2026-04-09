@@ -50,8 +50,12 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         node_path = self.lineEdit_node.text()
         results_folder = self.lineEdit_folder.text()
 
-        if not all([linkage_path, arc_path, node_path, results_folder]):
-            QMessageBox.warning(self, "Error", "Por favor, seleccione todos los archivos y la carpeta de resultados.")
+        catchment_name = self.lineEdit_catchment.text().strip()
+        groundwater_name = self.lineEdit_groundwater.text().strip()
+        ds_prefix = self.lineEdit_ds_prefix.text().strip()
+
+        if not all([linkage_path, arc_path, node_path, results_folder, catchment_name, groundwater_name, ds_prefix]):
+            QMessageBox.warning(self, "Error", "Por favor, seleccione todos los archivos, la carpeta de resultados y los nombres de los campos.")
             return
 
         try:
@@ -61,9 +65,9 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 arc=arc_path,
                 node=node_path,
                 results_folder=results_folder,
-                catchment_name="Catchment",
-                groundwater_name="GW",
-                ds_prefix="T_Dda_AP",
+                catchment_name=catchment_name,
+                groundwater_name=groundwater_name,
+                ds_prefix=ds_prefix,
             )
             QMessageBox.information(self, "Éxito", "Los chequeos se han ejecutado correctamente.")
         except Exception as e:
