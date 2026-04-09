@@ -90,7 +90,7 @@ class Visualizer:
 
         # Save the plot as an SVG
         plt.savefig(
-            self.result_path / (name + ".pdf"), format="pdf", bbox_inches="tight"
+            self.result_path + "/" + (name + ".pdf"), format="pdf", bbox_inches="tight"
         )
         plt.clf()  # Clear the figure for the next plot
 
@@ -98,13 +98,13 @@ class Visualizer:
         if not self.result_path:
             raise ValueError("Result path is not set. Please set the result path")
         if text:
-            with open(self.result_path / (name + ".txt"), "w") as file:
+            with open(self.result_path + "/" + (name + ".txt"), "w") as file:
                 if preface:
                     file.write(preface + "\n")
                 file.write(text + "\n")
 
         elif texts:
-            with open(self.result_path / (name + ".txt"), "w") as file:
+            with open(self.result_path + "/" + (name + ".txt"), "w") as file:
                 if preface:
                     file.write(preface + "\n")
                 for text in texts:
@@ -114,4 +114,4 @@ class Visualizer:
     # meaning every dict represents a row in the dataframe
     def write_csv_file(self, name, dict_list):
         df = pd.DataFrame(dict_list)
-        df.to_csv(self.result_path / (name + ".csv"), sep=",")
+        df.to_csv(self.result_path + "/" + (name + ".csv"), sep=",")

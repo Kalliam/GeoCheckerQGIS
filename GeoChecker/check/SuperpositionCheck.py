@@ -332,8 +332,14 @@ class SuperpositionCheck(Check):
         cell_area = cell["cell_area"]
 
         for base in base_element_data:
+            #if para el caso de que no exista y no se quiebre
+            if base not in self.base_names:
+                self.base_names[base] = 0
             self.base_names[base] += cell_area
         for secondary in secondary_element_data:
+            #mismo caso de que no exista
+            if secondary not in self.secondary_names:
+                self.secondary_names[secondary] = 0
             self.secondary_names[secondary] += cell_area
 
         if base_element_data is None or secondary_element_data is None:
