@@ -201,7 +201,7 @@ class SuperpositionCheck(Check):
 
         for i, base in enumerate(base_names):
             for j, secondary in enumerate(secondary_names):
-                if secondary in self.connections[base]:
+                if secondary in self.connections.get(base, {}):
                     matrix[i][j] = 0
 
         # Add the errors in red
