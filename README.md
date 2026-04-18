@@ -8,7 +8,7 @@ This tool is a QGIS plugin that provides a GUI for the original project built in
 Since the plugin is not yet in the official QGIS repository, it must be installed manually following these steps:
 
 
-## 1. Locate the plugins folder
+# 1. Locate the plugins folder
 
 The path depends on your operating system:
 
@@ -18,9 +18,9 @@ The path depends on your operating system:
 
 > **Note:** If the `plugins` folder does not exist, create it manually.
 
----
 
-## 2. Copy the repository
+
+# 2. Copy the repository
 
 - Download this repository as a **ZIP** file and extract it or clone it using **Git**.  
 ```
@@ -28,9 +28,9 @@ git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 ```
 - Move the cloned folder named **GeoChecker_QGIS** into the plugins folder located in the previous step.
 
----
 
-## 3. Activate in QGIS
+
+# 3. Activate in QGIS
 
 - Open (or restart) QGIS.  
 - Go to the menu **Plugins > Manage and Install Plugins...**  
@@ -40,7 +40,7 @@ git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 ---
 
 # Usage
-- Go to the menu **Plugins > Geochecker > Run GeoChecker**  
+Go to the menu **Plugins > Geochecker > Run GeoChecker**  
 
 ### Input Files
 Select the corresponding **Shapefile (.shp)** files for:
@@ -57,3 +57,4 @@ The results will be saved in the selected destination folder and will include:
 - Connection matrices in **PDF**.  
 - Error reports in **TXT** and **CSV**. 
 
+---
