@@ -3,7 +3,7 @@ GeoChecker is a tool that checks for mistakes in linkage files for WEAP-MODFLOW 
 This tool is a QGIS plugin that provides a GUI for the original project built in GRASS by [Antonio Torga](https://github.com/AntonioTorga/GeoChecker)
 
 
-# Manual Installation 
+## Manual Installation 
 
 Since the plugin is not yet in the official QGIS repository, it must be installed manually following these steps:
 
@@ -39,7 +39,7 @@ git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 
 ---
 
-# Usage
+## Usage
 Go to the menu **Plugins > Geochecker > Run GeoChecker**  
 
 ### Input Files
