@@ -8,7 +8,7 @@ This tool is a QGIS plugin that provides a GUI for the original project built in
 Since the plugin is not yet in the official QGIS repository, it must be installed manually following these steps:
 
 
-# 1. Locate the plugins folder
+### 1. Locate the plugins folder
 
 The path depends on your operating system:
 
@@ -20,7 +20,7 @@ The path depends on your operating system:
 
 
 
-# 2. Copy the repository
+### 2. Copy the repository
 
 - Download this repository as a **ZIP** file and extract it or clone it using **Git**.  
 ```
@@ -30,7 +30,7 @@ git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 
 
 
-# 3. Activate in QGIS
+### 3. Activate in QGIS
 
 - Open (or restart) QGIS.  
 - Go to the menu **Plugins > Manage and Install Plugins...**  
