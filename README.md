@@ -22,20 +22,20 @@ The path depends on your operating system:
 
 ### 2. Copy the repository
 
-- Download this repository as a **ZIP** file and extract it or clone it using **Git**.  
+Download this repository as a **ZIP** file and extract it or clone it using **Git**.  
 ```
 git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 ```
-- Move the cloned folder named **GeoChecker_QGIS** into the plugins folder located in the previous step.
+Move the cloned folder named **GeoChecker_QGIS** into the plugins folder located in the previous step.
 
 
 
 ### 3. Activate in QGIS
 
-- Open (or restart) QGIS.  
-- Go to the menu **Plugins > Manage and Install Plugins...**  
-- Search for **GeoChecker** in the *Installed* tab.  
-- Check the box to activate the plugin.
+Open (or restart) QGIS.  
+Go to the menu **Plugins > Manage and Install Plugins...**  
+Search for **GeoChecker** in the *Installed* tab.  
+Check the box to activate the plugin.
 
 ---
 
