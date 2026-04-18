@@ -1,19 +1,14 @@
 ; the next section is mandatory
 
 [general]
-name=HelloWorld
+name=GeoChecker
 email=me@example.com
 author=Just Me
 qgisMinimumVersion=3.0
 qgisMaximumVersion=4.99
-description=This is an example plugin for greeting the world.
-    Multiline is allowed:
-    lines starting with spaces belong to the same
-    field, in this case to the "description" field.
-    HTML formatting is not allowed.
-about=This paragraph can contain a detailed description
-    of the plugin. Multiline is allowed, HTML is not.
-version=version 1.2
-tracker=http://bugs.itopen.it
-repository=http://www.itopen.it/repo
+description=This plugin checks for mistakes in linkage files for WEAP-MODFLOW integrated models.
+about=[ABOUT_DESCRIPTION]
+version=1
+tracker=[TRACKER_URL]
+repository=https://github.com/Kalliam/GeoCheckerQGIS
 ; end of mandatory metadata
