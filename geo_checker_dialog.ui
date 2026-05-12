@@ -13,26 +13,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="btn_explore_linkage">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>50</y>
-     <width>75</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Subir shp</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>-10</y>
+     <y>10</y>
      <width>101</width>
-     <height>51</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
@@ -49,17 +36,30 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_explore_arc">
+  <widget class="QPushButton" name="btn_explore_linkage">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>0</x>
      <y>50</y>
-     <width>75</width>
+     <width>113</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Subir shp</string>
+    <string>Upload shp</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>10</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>WEAP Arc</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_arc">
@@ -72,30 +72,30 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QPushButton" name="btn_explore_arc">
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>-10</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>WEAP Arc</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_explore_node">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
      <y>50</y>
-     <width>75</width>
+     <width>113</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Subir shp</string>
+    <string>Upload shp</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>10</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>WEAP Node</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_node">
@@ -108,40 +108,17 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QPushButton" name="btn_explore_node">
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>-10</y>
-     <width>101</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>WEAP Node</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_explore_folder">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>160</y>
-     <width>101</width>
+     <y>50</y>
+     <width>113</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Seleccionar Ruta</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_folder">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>140</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
+    <string>Upload shp</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -150,11 +127,106 @@
      <x>0</x>
      <y>100</y>
      <width>101</width>
-     <height>51</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>Results Folder</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_folder">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>120</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_explore_folder">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>140</y>
+     <width>113</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Ruta</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Catchment name</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_catchment">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>120</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>100</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Groundwater name</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_groundwater">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>120</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>180</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DS prefix</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_ds_prefix">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>200</y>
+     <width>113</width>
+     <height>21</height>
+    </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_run">
@@ -167,79 +239,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Ejecutar</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>120</y>
-     <width>161</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Catchment column name</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>120</y>
-     <width>191</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Groundwater column name</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>210</y>
-     <width>151</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>DS prefix</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_catchment">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>140</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_groundwater">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>140</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_ds_prefix">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>230</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
+    <string>Run</string>
    </property>
   </widget>
  </widget>
