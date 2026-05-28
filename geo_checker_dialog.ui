@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -173,7 +173,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="txt_folder">
+    <widget class="QLineEdit" name="lineEdit_folder">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -196,7 +196,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_explore_folder_2">
+    <widget class="QPushButton" name="btn_explore_folder">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -240,7 +240,7 @@
       <string>Results Folder</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_folder">
+    <widget class="QLineEdit" name="lineEdit_folder_2">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -248,6 +248,9 @@
        <width>113</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
@@ -351,7 +354,7 @@
       <string>Upload shp</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_explore_folder">
+    <widget class="QPushButton" name="btn_explore_folder_2">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -386,6 +389,9 @@
        <height>21</height>
       </rect>
      </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
@@ -408,6 +414,9 @@
        <width>113</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_explore_arc">
@@ -454,6 +463,9 @@
        <width>113</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
