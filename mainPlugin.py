@@ -1,4 +1,6 @@
 import os
+import sys
+import subprocess
 from qgis.PyQt.QtGui import *
 from qgis.PyQt.QtWidgets import *
 
@@ -109,6 +111,12 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 ds_prefix=ds_prefix,
             )
             QMessageBox.information(self, "Success", "The checks have been executed correctly.")
+            if sys.platform == 'win32':
+                os.startfile(results_folder)
+            elif sys.platform == 'darwin':
+                subprocess.Popen(['open', results_folder])
+            else:
+                    subprocess.Popen(['xdg-open', results_folder])
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while executing the checks: {str(e)}")
 
