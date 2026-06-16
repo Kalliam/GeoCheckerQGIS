@@ -33,3 +33,31 @@ def run(
 
     geochecker.setup(cells, arcs, nodes)
     geochecker.run()
+
+    # Generar reportes especificos
+    target_arc_types = [7, 8, 22]
+    
+    # Agrupar arcos por tipo 
+    arcs_by_type = {}
+    for obj_id, arc_data in arcs.items():
+        t = arc_data.get("type_id")
+        if t not in arcs_by_type:
+            arcs_by_type[t] = {}
+        arcs_by_type[t][obj_id] = arc_data
+
+    for arc_type in target_arc_types:
+        if arc_type in arcs_by_type:
+            # Crear subcarpeta para el reporte especifico
+            type_folder = Path(results_folder) / f"type_{arc_type}"
+            type_folder.mkdir(parents=True, exist_ok=True)
+            
+            type_geochecker = GeoChecker(
+                [
+                    SuperpositionCheck("groundwater", "demand_site"),
+                    SuperpositionCheck("groundwater", "catchment"),
+                ],
+                folder_path=type_folder,
+            )
+            # Pasamos solo los arcos filtrados por este tipo
+            type_geochecker.setup(cells, arcs_by_type[arc_type], nodes)
+            type_geochecker.run()

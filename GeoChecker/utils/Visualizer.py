@@ -10,7 +10,7 @@ class Visualizer:
         self.result_path = None
 
     def set_result_path(self, result_path: str):
-        self.result_path = result_path
+        self.result_path = str(result_path)
 
     def write_matrix_img(self, matrix, name, **kwargs):
         if not self.result_path:
