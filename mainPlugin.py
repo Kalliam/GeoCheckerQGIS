@@ -6,7 +6,7 @@ from qgis.PyQt.QtWidgets import *
 
 # initialize Qt resources from file resources.py
 from PyQt6 import uic
-from .GeoChecker.main_QGIS import run
+from .GeoChecker.AppKernel import AppKernel
 from qgis.core import QgsMapLayerProxyModel, QgsProject, QgsVectorLayer, QgsMapLayerType, QgsWkbTypes
 
 
@@ -101,7 +101,7 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
 
         try:
             #funcion principal
-            run(
+            appkernel = AppKernel(
                 linkage=linkage_path,
                 arc=arc_path,
                 node=node_path,
@@ -110,6 +110,7 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 groundwater_name=groundwater_name,
                 ds_prefix=ds_prefix,
             )
+            appkernel.run()
             QMessageBox.information(self, "Success", "The checks have been executed correctly.")
             if sys.platform == 'win32':
                 os.startfile(results_folder)
