@@ -12,11 +12,13 @@ Since the plugin is not yet in the official QGIS repository, it must be installe
 
 The path depends on your operating system:
 
-- **Windows**: `%AppData%\QGIS\QGIS4\profiles\default\python\plugins`  
-- **Linux**: `~/.local/share/QGIS/QGIS4/profiles/default/python/plugins`  
-- **macOS**: `~/Library/Application Support/QGIS/QGIS4/profiles/default/python/plugins`  
-
-> **Note:** If the `plugins` folder does not exist, create it manually.
+| Operating System | Plugins Path |
+|---|---|
+| **Windows** | `%APPDATA%\QGIS\QGIS4\profiles\default\python\plugins\` |
+| **Linux** | `~/.local/share/QGIS/QGIS4/profiles/default/python/plugins/` |
+| **macOS** | `~/Library/Application Support/QGIS/QGIS4/profiles/default/python/plugins/` |
+> [!NOTE] 
+> If the "plugins" folder does not exist, create it manually.
 
 
 
@@ -40,7 +42,11 @@ Check the box to activate the plugin.
 ---
 
 ## Usage
-Go to the menu **Plugins > Geochecker > Run GeoChecker**  
+Go to the menu **Plugins > Geochecker > Run GeoChecker**.
+
+Geochecker has two ways to load the input files, once per tab in the opened window:
+1. **QGIS Load**: Loads the input files from the current layers in the QGIS project.
+2. **Manual Load**: Loads the input files from the local file system.
 
 ### Input Files
 Select the corresponding **Shapefile (.shp)** files for:
@@ -49,10 +55,10 @@ Select the corresponding **Shapefile (.shp)** files for:
 - WEAP Nodes.  
 
 Fill the column names of your database (**Catchment**, **Groundwater**) and the demand site prefix.
-> **Note:** To check the name values, open the attribute table of the shapefiles.
+> **Note:** you can check the column names by opening the attribute table of the shapefiles.
 
 ### Execute
-Press the button to process.  
+Press the **run** button to process.  
 The results will be saved in the selected destination folder and will include:
 - Connection matrices in **PDF**.  
 - Error reports in **TXT** and **CSV**. 
