@@ -30,9 +30,13 @@ git clone <https://github.com/Kalliam/GeoCheckerQGIS.git>
 ```
 Move the cloned folder named **GeoChecker_QGIS** into the plugins folder located in the previous step.
 
+### 3. Install required packages
+Open OSGeo4W Shell and install the required packages with:
+   ```bash
+   python -m pip install pandas seaborn matplotlib numpy
+   ```
 
-
-### 3. Activate in QGIS
+### 4. Activate in QGIS
 
 Open (or restart) QGIS.  
 Go to the menu **Plugins > Manage and Install Plugins...**  
@@ -44,7 +48,7 @@ Check the box to activate the plugin.
 ## Usage
 Go to the menu **Plugins > Geochecker > Run GeoChecker**.
 
-Geochecker has two ways to load the input files, once per tab in the opened window:
+Geochecker has two ways to load the input files, one per tab in the opened window:
 1. **QGIS Load**: Loads the input files from the current layers in the QGIS project.
 2. **Manual Load**: Loads the input files from the local file system.
 
