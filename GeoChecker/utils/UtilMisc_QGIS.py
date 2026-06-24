@@ -1,5 +1,6 @@
 import random
 from qgis.core import QgsVectorLayer, NULL
+from qgis.PyQt.QtCore import QCoreApplication
 
 class UtilMisc:
 
@@ -72,7 +73,15 @@ class UtilMisc:
         cells = dict()
         linkage_layer = QgsVectorLayer(linkage_map, "linkage", "ogr") #QgsVectorLayer reemplaza a VectorTopo
 
-        for feature in linkage_layer.getFeatures(): #viter("areas") por getFeatures()
+        field_names = linkage_layer.fields().names()
+        demand_attrs = [
+            attr for attr in field_names if attr.startswith(ds_prefix)
+        ]
+
+        for i, feature in enumerate(linkage_layer.getFeatures()): #viter("areas") por getFeatures()
+            if i % 1000 == 0:
+                QCoreApplication.processEvents()
+
             #feature ~ cell
             cat = feature.id()  #cell.cat
             catch_raw = feature[catch_name]  #cell.attrs
@@ -81,12 +90,6 @@ class UtilMisc:
 
             catch = str(catch_raw).strip() if catch_raw != NULL and catch_raw else None
             gw = str(gw_raw).strip() if gw_raw != NULL and gw_raw else None
-
-
-            field_names = feature.fields().names() #cell.attrs.keys() no es accesible, los nombres de las columnas se sacan con fields()
-            demand_attrs = [
-                attr for attr in field_names if attr.startswith(ds_prefix)
-            ]
             
             demand_sites = []
             for attr in demand_attrs:
@@ -117,7 +120,8 @@ class UtilMisc:
 
         for feature in arc_layer.getFeatures():
             obj_id = feature["ObjID"]
-            type_id = int(feature["TypeID"]) #fuerzo a int por la linea de type_id = node["type_id"] en superposition_check.py
+            type_id_raw = feature["TypeID"]
+            type_id = int(type_id_raw) if type_id_raw != NULL else 0
             src_id = feature["SrcObjID"]
             dst_id = feature["DestObjID"]
             arcs[obj_id] = {
