@@ -68,23 +68,22 @@ class UtilMisc:
         """
         
         # ---------------------------------------------------------
-        # Malla
+        # Grid
         # ---------------------------------------------------------
         cells = dict()
-        linkage_layer = QgsVectorLayer(linkage_map, "linkage", "ogr") #QgsVectorLayer reemplaza a VectorTopo
+        linkage_layer = QgsVectorLayer(linkage_map, "linkage", "ogr") 
 
         field_names = linkage_layer.fields().names()
         demand_attrs = [
             attr for attr in field_names if attr.startswith(ds_prefix)
         ]
 
-        for i, feature in enumerate(linkage_layer.getFeatures()): #viter("areas") por getFeatures()
+        for i, feature in enumerate(linkage_layer.getFeatures()):
             if i % 1000 == 0:
                 QCoreApplication.processEvents()
 
-            #feature ~ cell
-            cat = feature.id()  #cell.cat
-            catch_raw = feature[catch_name]  #cell.attrs
+            cat = feature.id()
+            catch_raw = feature[catch_name]
             gw_raw = feature[gw_name]
             area = feature.geometry().area()
 
@@ -94,13 +93,11 @@ class UtilMisc:
             demand_sites = []
             for attr in demand_attrs:
                 val = feature[attr]
-                # Limpiamos también los sitios de demanda
+                # demand sites cleanup
                 if val != NULL and val:
                     demand_sites.append(str(val).strip())
-            demand_sites = list(set(demand_sites)) # quitamos duplicados
+            demand_sites = list(set(demand_sites)) # removing duplicates
        
-
-            #sin cambios
             if None in demand_sites:
                 demand_sites.remove(None)
 
@@ -112,9 +109,8 @@ class UtilMisc:
             }
 
         # ---------------------------------------------------------
-        # Lineas
+        # Arcs
         # ---------------------------------------------------------
-        #sin cambios mas alla de feature -> cell
         arcs = dict()
         arc_layer = QgsVectorLayer(arc_map, "arcs", "ogr")
 
@@ -131,23 +127,20 @@ class UtilMisc:
             }
             
         # ---------------------------------------------------------
-        # Puntos
+        # Nodes
         # ---------------------------------------------------------
-        # sin cambios mas alla de feature -> node y cat = feature.id() en vez de node.cat
         nodes = dict()
         node_layer = QgsVectorLayer(node_map, "nodes", "ogr")
 
         for feature in node_layer.getFeatures():
             obj_id = feature["ObjID"]
-            # type_id = feature["TypeID"]
-            # name = feature["name2"]
             type_id_raw = feature["TypeID"]
             type_id = int(type_id_raw) if type_id_raw != NULL else 0
             
             name_raw = feature["name2"]
             name = str(name_raw).strip() if name_raw != NULL else ""
    
-            cat = feature.id()  #node.cat -> feature.id()
+            cat = feature.id()
             nodes[obj_id] = {
                 "type_id": type_id,
                 "name": name,

@@ -23,7 +23,7 @@ class AppKernel:
             SuperpositionCheck("groundwater", "catchment"),
         ]
 
-    ##Agrupa los arcos por su tipo y devuelve un diccionario 
+    # group arcs by type and return a dictionary 
     def _group_arcs_by_type(self):
         arcs_type = {}
         for obj_id, arc_data in self.arcs.items():
@@ -34,7 +34,7 @@ class AppKernel:
         return arcs_type
 
     def load_data(self):
-        # QGIS lee los archivos directo desde el disco, borrado el entorno temporal 
+        # QGIS reads the files directly from the disk, deleting the temporary environment 
         self.cells, self.arcs, self.nodes = UtilMisc.structure_creation(
             linkage_map=str(self.linkage),
             arc_map=str(self.arc),
@@ -55,16 +55,16 @@ class AppKernel:
             
         arcs_by_type = self._group_arcs_by_type()
         
-        # check por tipo de arco
+        # check by arc type
         for arc_type in target_arc_types:
             if arc_type in arcs_by_type:
-                # Crear subcarpeta para el reporte especifico
+                # create subfolder for specific report
                 type_folder = Path(self.results_folder) / f"type_{arc_type}"
                 type_folder.mkdir(parents=True, exist_ok=True)
                 
                 type_geochecker = GeoChecker(self.checks, folder_path=type_folder)
                 
-                # Pasamos solo los arcos filtrados por este tipo
+                # we pass only the arcs filtered by this type
                 type_geochecker.setup(self.cells, arcs_by_type[arc_type], self.nodes)
                 type_geochecker.run()
 

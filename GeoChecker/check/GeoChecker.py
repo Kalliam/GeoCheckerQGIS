@@ -1,6 +1,4 @@
 from ..utils.Visualizer import Visualizer
-from collections import defaultdict
-
 
 class GeoChecker:
     """
@@ -12,12 +10,6 @@ class GeoChecker:
 
     checks : list
         List of checks to be performed, this checks are instances of the Check class.
-
-    config : ConfigApp
-        Configuration object for the GeoChecker postprocessor.
-
-    img_path : str
-        Path to the directory where the visualizations and data of the checks will be saved.
 
     arcs : dict
         Dictionary containing the arcs data.
@@ -51,12 +43,6 @@ class GeoChecker:
             }
         }
 
-    error : ErrorManager
-        Error manager object to manage the errors and warning obtained during the checks.
-
-    summary : SummaryInfo
-        Summary object to store the summary of the checks.
-
     visualizer : visualizer
         visualizer object to manage the visualization of the checks.
 
@@ -67,15 +53,6 @@ class GeoChecker:
 
     set_consolidate_cells(cells):
         Set the consolidated cells data to be used in the checks.
-
-    get_summary():
-        Return the summary of the checks.
-
-    print_checks():
-        Return a string with the checks names and descriptions.
-
-    checking_errors():
-        Loop through the checks and append the errors to the error manager.
 
     setup(consolidate_cells, arcs, nodes):
         Set the consolidated cells, arcs and nodes data to be used in the checks.
@@ -136,15 +113,6 @@ class GeoChecker:
     def set_consolidate_cells(self, cells):
         self.cells = cells
 
-    def get_summary(self):
-        return self.summary
-
-    def checking_errors(self):
-        for check in self.checks:
-            if check.get_errors():
-                msg = f"Chequeo con nombre '{check.get_name()}' ha encontrado errores, revise el directorio {self.folder_path} para más información."
-                self.error.append(msg=msg, typ="geo_check", is_warn=True)
-
     def setup(self, consolidate_cells, arcs, nodes):
         self.set_consolidate_cells(consolidate_cells)
         self.set_arcs_and_nodes(arcs, nodes)
@@ -199,13 +167,9 @@ class GeoChecker:
         for check in self.checks:
             check.plot(self.visualizer)
 
-
     def run(self):
         # Initializing secuence
         self.build_checks()
         # Checking secuence
         self.perform_checks()
-        # Return errors.
-        self.checking_errors()
-        # Here somebody should ask for the summary
         self.plot_checks()

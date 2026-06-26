@@ -57,9 +57,6 @@ class Check(ABC):
     get_cell_feature_data(cell, feature_type)
         Method to get the data of a feature from a cell structure.
 
-    get_cell_feature_names(cell, feature_type)
-        Method to get the names of a feature from a cell structure.
-
     """
 
     def __init__(self):

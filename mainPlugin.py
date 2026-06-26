@@ -7,26 +7,54 @@ from qgis.PyQt.QtWidgets import *
 # initialize Qt resources from file resources.py
 from PyQt6 import uic
 from .GeoChecker.AppKernel import AppKernel
-from qgis.core import QgsMapLayerProxyModel, QgsProject, QgsVectorLayer, QgsMapLayerType, QgsWkbTypes
+from qgis.core import QgsMapLayerProxyModel, QgsVectorLayer, QgsWkbTypes
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'geo_checker_dialog.ui'))
 
-# clase ventana
+
 class GeoCheckerDialog(QDialog, FORM_CLASS):
+    """
+    GeoCheckerDialog class represents the main user interface dialog for the GeoChecker plugin.
+    It manages user inputs, file selections, and triggers the execution of the checks.
+
+    Attributes:
+    ----------
+    No explicitly defined attributes. All UI elements are inherited from FORM_CLASS and initialized via setupUi.
+
+    Methods:
+    --------
+    on_malla_layer_changed(layer):
+        Updates the field combo boxes when the grid layer changes in the QGIS import tab.
+    
+    select_linkage():
+        Opens a file dialog to select the linkage shapefile and validates its geometry type.
+    
+    select_arc():
+        Opens a file dialog to select the arc shapefile and validates its geometry type.
+    
+    select_node():
+        Opens a file dialog to select the node shapefile and validates its geometry type.
+    
+    select_results(tab):
+        Opens a directory dialog to select the output folder for the results based on the active tab.
+    
+    run(tab):
+        Retrieves inputs from the user interface, initializes the AppKernel, and executes the checks.
+    """
     def __init__(self, parent=None):
         super(GeoCheckerDialog, self).__init__(parent)
-        self.setupUi(self) # Esto "dibuja" la ventana
+        self.setupUi(self)
         
-        #los nombres (btn_explore_linkage) deben coincidir con QT desgner
-        #2da tab
+        #btn names of widgets must match QT desgner
+        #2nd tab
         self.btn_explore_linkage.clicked.connect(self.select_linkage)
         self.btn_explore_arc.clicked.connect(self.select_arc)
         self.btn_explore_node.clicked.connect(self.select_node)
         self.btn_run.clicked.connect(lambda: self.run(2)) 
         self.btn_explore_folder_2.clicked.connect(lambda: self.select_results(2))
 
-        #1ra tab (QGIS Import)
+        #1st tab (QGIS Import)
         self.cmb_layer_malla.setFilters(QgsMapLayerProxyModel.PolygonLayer)
         self.cmb_layer_nodes.setFilters(QgsMapLayerProxyModel.PointLayer)
         self.cmb_layer_arcs.setFilters(QgsMapLayerProxyModel.LineLayer)
@@ -35,28 +63,26 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         self.cmb_layer_malla.layerChanged.connect(self.on_malla_layer_changed)
         self.btn_run_2.clicked.connect(lambda: self.run(1))
 
-        # Inicializar los field combos con la capa actual de cmb_layer_malla
+        # Initialize the field combos with the current layer of cmb_layer_malla
         initial_layer = self.cmb_layer_malla.currentLayer()
         if initial_layer:
             self.on_malla_layer_changed(initial_layer)
 
-
-    #logica de los botones
     def on_malla_layer_changed(self, layer):
-        """Cuando cambia la capa en cmb_layer_malla, actualiza los field combos."""
+        # Updates the layer fields
         self.cmb_field_catchment.setLayer(layer)
         self.cmb_field_groundwater.setLayer(layer)
         self.cmb_field_ds_prefix.setLayer(layer)
 
     def select_linkage(self):
-        # Abre el buscador limitando la vista a archivos .shp
+        # Opens the file dialog limiting the view to .shp files
         filename, _ = QFileDialog.getOpenFileName(self, "Select Linkage File", "", "Shapefiles (*.shp)")
         if filename:
             layer = QgsVectorLayer(filename, "temp_linkage", "ogr")
             if layer.isValid() and layer.geometryType() != QgsWkbTypes.PolygonGeometry:
                 QMessageBox.warning(self, "Geometry Error", "The Linkage file must be of Polygon type.")
                 return
-            self.lineEdit_linkage.setText(filename) # Pega la ruta en la caja de texto
+            self.lineEdit_linkage.setText(filename)
 
     def select_arc(self):
         filename, _ = QFileDialog.getOpenFileName(self, "Select Arc File", "", "Shapefiles (*.shp)")
@@ -116,7 +142,7 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
             node_path = node_path.source().split('|')[0]
 
         try:
-            #funcion principal
+            # main task
             appkernel = AppKernel(
                 linkage=linkage_path,
                 arc=arc_path,
@@ -137,8 +163,34 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while executing the checks: {str(e)}")
 
-# clase principal del Plugin (por defecto))
+# main class of the plugin
 class GeoCheckerPlugin:
+    """
+    GeoCheckerPlugin class is the main entry point for the QGIS plugin.
+    It handles the initialization, integration with the QGIS interface, and execution of the plugin's dialog.
+
+    Attributes:
+    ----------
+    iface : QgisInterface
+        Reference to the QGIS interface instance.
+    
+    action : QAction
+        The action added to the QGIS menu to trigger the plugin.
+        
+    dialog : GeoCheckerDialog
+        The main dialog window of the plugin.
+
+    Methods:
+    --------
+    initGui():
+        Initializes the plugin's graphical user interface, creating the menu action.
+        
+    unload():
+        Removes the plugin menu item and cleans up resources when the plugin is disabled.
+        
+    run():
+        Instantiates (if necessary) and displays the main plugin dialog.
+    """
     def __init__(self, iface):
         self.iface = iface
         self.action = None

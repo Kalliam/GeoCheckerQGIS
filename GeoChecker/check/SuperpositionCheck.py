@@ -126,7 +126,7 @@ class SuperpositionCheck(Check):
         if base_name in self.connections:
             return secondary_name in self.connections[base_name]
 
-        # Solo llega aquí si no existe el elemento base en WEAP.
+        # Only arrives here if the base element does not exist in WEAP.
         return True
 
     def make_error_dict_for_df(self):
@@ -249,7 +249,7 @@ class SuperpositionCheck(Check):
             cbar=True,
             min_val=0,
             max_val=1,
-            title=f"Matriz de conexión entre {self.base_feature} y {self.secondary_feature}",
+            title=f"Connection matrix for {self.base_feature} and {self.secondary_feature} elements",
             x_label=self.secondary_feature,
             y_label=self.base_feature,
         )
@@ -265,7 +265,7 @@ class SuperpositionCheck(Check):
             cmap="rocket_r",
             min_val=0,
             max_val=1,
-            title=f"Matriz de magnitud de errores entre {self.base_feature} y {self.secondary_feature}, normalizado sobre el área de {self.secondary_feature}",
+            title=f"Error magnitude matrix for {self.base_feature} and {self.secondary_feature} elements, normalized over the area of {self.secondary_feature}",
             x_label=self.secondary_feature,
             y_label=self.base_feature,
         )
@@ -274,7 +274,7 @@ class SuperpositionCheck(Check):
         visualizer.write_text_file(
             f"{self.base_feature}_{self.secondary_feature}_error_report",
             texts=error_list,
-            preface=f"Reporte de errores en la superposición de elementos {self.base_feature}-{self.secondary_feature} en el archivo de enlace. Un error implica que la superposición no está correspondida por una conexión en WEAP. Las causas más frecuentes son, un enlace faltante que se debe agregar al modelo WEAP, o coordenadas incorrectas proveidas para la esquina inferior izquierda (provea estas coordenadas con la mayor cantidad de decimales posible).",
+            preface=f"Error report in the superposition of {self.base_feature}-{self.secondary_feature} elements in the linkage file. An error implies that the superposition is not corresponded by a connection in WEAP. The most frequent causes are, a missing link that must be added to the WEAP model, or incorrect coordinates provided for the lower left corner (provide these coordinates with the most decimal places possible).",
         )
 
         error_dict_for_df = self.make_error_dict_for_df()
@@ -332,12 +332,12 @@ class SuperpositionCheck(Check):
         cell_area = cell["cell_area"]
 
         for base in base_element_data:
-            #if para el caso de que no exista y no se quiebre
+            # if for the case of non existence and not break
             if base not in self.base_names:
                 self.base_names[base] = 0
             self.base_names[base] += cell_area
         for secondary in secondary_element_data:
-            #mismo caso de que no exista
+            # same case of non existence
             if secondary not in self.secondary_names:
                 self.secondary_names[secondary] = 0
             self.secondary_names[secondary] += cell_area
