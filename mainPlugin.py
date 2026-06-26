@@ -27,6 +27,10 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         self.btn_explore_folder_2.clicked.connect(lambda: self.select_results(2))
 
         #1ra tab (QGIS Import)
+        self.cmb_layer_malla.setFilters(QgsMapLayerProxyModel.PolygonLayer)
+        self.cmb_layer_nodes.setFilters(QgsMapLayerProxyModel.PointLayer)
+        self.cmb_layer_arcs.setFilters(QgsMapLayerProxyModel.LineLayer)
+
         self.btn_explore_folder.clicked.connect(lambda: self.select_results(1))
         self.cmb_layer_malla.layerChanged.connect(self.on_malla_layer_changed)
         self.btn_run_2.clicked.connect(lambda: self.run(1))
@@ -48,16 +52,28 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         # Abre el buscador limitando la vista a archivos .shp
         filename, _ = QFileDialog.getOpenFileName(self, "Select Linkage File", "", "Shapefiles (*.shp)")
         if filename:
+            layer = QgsVectorLayer(filename, "temp_linkage", "ogr")
+            if layer.isValid() and layer.geometryType() != QgsWkbTypes.PolygonGeometry:
+                QMessageBox.warning(self, "Geometry Error", "The Linkage file must be of Polygon type.")
+                return
             self.lineEdit_linkage.setText(filename) # Pega la ruta en la caja de texto
 
     def select_arc(self):
         filename, _ = QFileDialog.getOpenFileName(self, "Select Arc File", "", "Shapefiles (*.shp)")
         if filename:
+            layer = QgsVectorLayer(filename, "temp_arc", "ogr")
+            if layer.isValid() and layer.geometryType() != QgsWkbTypes.LineGeometry:
+                QMessageBox.warning(self, "Geometry Error", "The Arc file must be of Line type.")
+                return
             self.lineEdit_arc.setText(filename)
 
     def select_node(self):
         filename, _ = QFileDialog.getOpenFileName(self, "Select Node File", "", "Shapefiles (*.shp)")
         if filename:
+            layer = QgsVectorLayer(filename, "temp_node", "ogr")
+            if layer.isValid() and layer.geometryType() != QgsWkbTypes.PointGeometry:
+                QMessageBox.warning(self, "Geometry Error", "The Node file must be of Point type.")
+                return
             self.lineEdit_node.setText(filename)
 
     def select_results(self, tab):
