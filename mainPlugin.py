@@ -3,6 +3,7 @@ import sys
 import subprocess
 from qgis.PyQt.QtGui import *
 from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtCore import Qt
 
 # initialize Qt resources from file resources.py
 from PyQt6 import uic
@@ -111,7 +112,9 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 self.lineEdit_folder_2.setText(folder)
 
 
-    def run(self, tab):
+    def run(self, tab):  
+        # Set wait cursor
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)      
         if tab == 1:
             linkage_path = self.cmb_layer_malla.currentLayer()
             arc_path = self.cmb_layer_arcs.currentLayer()
@@ -153,6 +156,10 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 ds_prefix=ds_prefix,
             )
             appkernel.run()
+
+            # reset cursor
+            QApplication.restoreOverrideCursor()    
+
             QMessageBox.information(self, "Success", "The checks have been executed correctly.")
             if sys.platform == 'win32':
                 os.startfile(results_folder)
