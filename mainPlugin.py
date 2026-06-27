@@ -7,8 +7,9 @@ from qgis.PyQt.QtCore import Qt
 
 # initialize Qt resources from file resources.py
 from PyQt6 import uic
+from qgis.utils import iface
 from .GeoChecker.AppKernel import AppKernel
-from qgis.core import QgsMapLayerProxyModel, QgsVectorLayer, QgsWkbTypes
+from qgis.core import Qgis, QgsMapLayerProxyModel, QgsVectorLayer, QgsWkbTypes
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'geo_checker_dialog.ui'))
@@ -113,8 +114,6 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
 
 
     def run(self, tab):  
-        # Set wait cursor
-        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)      
         if tab == 1:
             linkage_path = self.cmb_layer_malla.currentLayer()
             arc_path = self.cmb_layer_arcs.currentLayer()
@@ -155,10 +154,24 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
                 groundwater_name=groundwater_name,
                 ds_prefix=ds_prefix,
             )
-            appkernel.run()
-
-            # reset cursor
-            QApplication.restoreOverrideCursor()    
+            
+            # Message Bar with infinite progress
+            progress_msg = iface.messageBar().createMessage("GeoChecker", "Running plugin, please wait...")
+            progress_bar = QProgressBar()
+            progress_bar.setRange(0, 0)
+            progress_msg.layout().addWidget(progress_bar)
+            iface.messageBar().pushWidget(progress_msg, Qgis.MessageLevel.Info)
+            
+            # Set wait cursor
+            QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+            QApplication.processEvents()
+            
+            try:
+                appkernel.run()
+            finally:
+                # reset cursor and clean message bar
+                QApplication.restoreOverrideCursor()
+                iface.messageBar().clearWidgets()
 
             QMessageBox.information(self, "Success", "The checks have been executed correctly.")
             if sys.platform == 'win32':
@@ -166,7 +179,7 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
             elif sys.platform == 'darwin':
                 subprocess.Popen(['open', results_folder])
             else:
-                    subprocess.Popen(['xdg-open', results_folder])
+                subprocess.Popen(['xdg-open', results_folder])
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred while executing the checks: {str(e)}")
 
