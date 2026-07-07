@@ -1,5 +1,6 @@
 from .Check import Check
 from ..utils.Visualizer import Visualizer
+from qgis.PyQt.QtCore import QCoreApplication
 import numpy as np
 
 nodes_type_id = {
@@ -197,9 +198,15 @@ class SuperpositionCheck(Check):
         base_names = list(self.base_names.keys())
         secondary_names = list(self.secondary_names.keys())
 
+        if len(base_names) > 150 or len(secondary_names) > 150:
+            #triggers the TOO_LARGE logic in Visualizer
+            return np.zeros((151, 151)), base_names, secondary_names
+
         matrix = np.ones((len(base_names), len(secondary_names)), dtype=float)
 
         for i, base in enumerate(base_names):
+            if i % 100 == 0:
+                QCoreApplication.processEvents()
             for j, secondary in enumerate(secondary_names):
                 if secondary in self.connections.get(base, {}):
                     matrix[i][j] = 0
@@ -220,6 +227,9 @@ class SuperpositionCheck(Check):
 
         base_names = list(self.connection_error.keys())
         secondary_names = list(set().union(*list(self.connection_error.values())))
+
+        if len(base_names) > 150 or len(secondary_names) > 150:
+            return np.zeros((151, 151)), base_names, secondary_names
 
         matrix = np.zeros((len(base_names), len(secondary_names)), dtype=float)
 
