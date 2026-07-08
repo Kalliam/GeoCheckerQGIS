@@ -47,6 +47,7 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         super(GeoCheckerDialog, self).__init__(parent)
         self.setupUi(self)
+        self._setup_images()
         
         #btn names of widgets must match QT desgner
         #2nd tab
@@ -69,6 +70,24 @@ class GeoCheckerDialog(QDialog, FORM_CLASS):
         initial_layer = self.cmb_layer_malla.currentLayer()
         if initial_layer:
             self.on_malla_layer_changed(initial_layer)
+
+    def _setup_images(self):
+        base_dir = os.path.dirname(__file__)
+        images_info = [
+            (self.linkage_icon, 'img/logo_linkage_light.png', 400, 81),
+            (self.ceaza_icon, 'img/Ceaza-icon.png', 100, 100),
+            (self.dcc_icon, 'img/dcc_icon.png', 100, 100),
+            (self.usm_icon, 'img/usm_icon.png', 100, 100),
+        ]
+        
+        for label, rel_path, max_w, max_h in images_info:
+            full_path = os.path.join(base_dir, rel_path)
+            if os.path.exists(full_path):
+                pixmap = QPixmap(full_path)
+                if not pixmap.isNull():
+                    scaled_pixmap = pixmap.scaled(max_w, max_h, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+                    label.setPixmap(scaled_pixmap)
+                    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def on_malla_layer_changed(self, layer):
         # Updates the layer fields
