@@ -51,15 +51,15 @@ class AppKernel:
 
     def run_specific_reports(self, target_arc_types=None):
         if target_arc_types is None:
-            target_arc_types = [7, 8, 22]
+            target_arc_types = [(7,"Transmisión_linkage"), (8,"Return_flow"), (22, "Renant_inflintation")]
             
         arcs_by_type = self._group_arcs_by_type()
         
         # check by arc type
-        for arc_type in target_arc_types:
+        for arc_type, name in target_arc_types:
             if arc_type in arcs_by_type:
                 # create subfolder for specific report
-                type_folder = Path(self.results_folder) / f"type_{arc_type}"
+                type_folder = Path(self.results_folder) / f"{name}_Arcs_only"
                 type_folder.mkdir(parents=True, exist_ok=True)
                 
                 type_geochecker = GeoChecker(self.checks, folder_path=type_folder)
