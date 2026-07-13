@@ -8,6 +8,7 @@ import pandas as pd
 class Visualizer:
     def __init__(self):
         self.result_path = None
+        self.matrix_limit = 500
 
     def set_result_path(self, result_path: str):
         self.result_path = str(result_path)
@@ -19,10 +20,10 @@ class Visualizer:
         if matrix is None:
             return
             
-        if matrix.shape[0] > 150 or matrix.shape[1] > 150:
+        if matrix.shape[0] > self.matrix_limit or matrix.shape[1] > self.matrix_limit:
             self.write_text_file(
                 name + "_TOO_LARGE",
-                text=f"The matrix is too large to plot ({matrix.shape[0]}x{matrix.shape[1]}). Please check the CSV files instead."
+                text=f"The matrix is too large to plot ({matrix.shape[0]}x{matrix.shape[1]}). Please check the CSV files instead. Notice that if no errors are reported, the CSV file will be not generated."
             )
             return
 

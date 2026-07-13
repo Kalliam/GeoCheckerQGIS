@@ -108,6 +108,8 @@ class SuperpositionCheck(Check):
         self.connections = {}
         self.connection_error = {}
 
+        self.matrix_limit = 500
+
     # Space for auxiliary functions specific to this class.
 
     def add_error(self, base_element, super_element, area=1):
@@ -198,9 +200,9 @@ class SuperpositionCheck(Check):
         base_names = list(self.base_names.keys())
         secondary_names = list(self.secondary_names.keys())
 
-        if len(base_names) > 150 or len(secondary_names) > 150:
+        if len(base_names) > self.matrix_limit or len(secondary_names) > self.matrix_limit:
             #triggers the TOO_LARGE logic in Visualizer
-            return np.zeros((151, 151)), base_names, secondary_names
+            return np.zeros((self.matrix_limit+1, self.matrix_limit+1)), base_names, secondary_names
 
         matrix = np.ones((len(base_names), len(secondary_names)), dtype=float)
 
@@ -228,8 +230,8 @@ class SuperpositionCheck(Check):
         base_names = list(self.connection_error.keys())
         secondary_names = list(set().union(*list(self.connection_error.values())))
 
-        if len(base_names) > 150 or len(secondary_names) > 150:
-            return np.zeros((151, 151)), base_names, secondary_names
+        if len(base_names) > self.matrix_limit or len(secondary_names) > self.matrix_limit:
+            return np.zeros((self.matrix_limit+1, self.matrix_limit+1)), base_names, secondary_names
 
         matrix = np.zeros((len(base_names), len(secondary_names)), dtype=float)
 

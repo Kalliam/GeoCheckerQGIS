@@ -248,4 +248,5 @@ class GeoCheckerPlugin:
     def run(self):
         if not self.dialog:
             self.dialog = GeoCheckerDialog(self.iface.mainWindow())
+        self.dialog.tabWidget.setCurrentIndex(0)
         self.dialog.show()
