@@ -65,6 +65,7 @@ Fill the column names of your database (**Catchment**, **Groundwater**) and the 
 Press the **run** button to process.  
 The results will be saved in the selected destination folder and will include:
 - Connection matrices in **PDF**.  
-- Error reports in **TXT** and **CSV**. 
-
+- Error reports in **TXT** and **CSV**.
+- Subfolders for arc types, each containing the connection matrix and error report files filtered by that arc type.
+> **Note:** If the plugin does not detect any errors, these error report files will not be generated.
 ---
